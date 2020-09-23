@@ -29,15 +29,13 @@ class LocationPicker extends StatefulWidget {
     this.layersButtonEnabled,
     this.automaticallyAnimateToCurrentLocation,
     this.mapStylePath,
-    this.appBarColor,
-    this.searchBarBoxDecoration,
-    this.hintText,
-    this.resultCardConfirmIcon,
-    this.resultCardAlignment,
-    this.resultCardDecoration,
-    this.resultCardPadding,
     this.countries,
     this.language = 'en',
+    this.titleBottom,
+    this.borderColor,
+    this.heightBottom,
+    this.button,
+    this.primaryColor,
   });
 
   final String apiKey;
@@ -45,23 +43,17 @@ class LocationPicker extends StatefulWidget {
   final LatLng initialCenter;
   final double initialZoom;
   final List<String> countries;
-
   final bool requiredGPS;
   final bool myLocationButtonEnabled;
   final bool layersButtonEnabled;
   final bool automaticallyAnimateToCurrentLocation;
-
   final String mapStylePath;
-
-  final Color appBarColor;
-  final BoxDecoration searchBarBoxDecoration;
-  final String hintText;
-  final Widget resultCardConfirmIcon;
-  final Alignment resultCardAlignment;
-  final Decoration resultCardDecoration;
-  final EdgeInsets resultCardPadding;
-
+  final Text titleBottom;
+  final Color borderColor;
+  final double heightBottom;
   final String language;
+  final Widget button;
+  final Color primaryColor;
 
   @override
   LocationPickerState createState() => LocationPickerState();
@@ -389,14 +381,8 @@ class LocationPickerState extends State<LocationPicker> {
           appBar: AppBar(
             iconTheme: Theme.of(context).iconTheme,
             elevation: 0,
-            backgroundColor: widget.appBarColor,
+            backgroundColor: Colors.transparent,
             key: appBarKey,
-            title: SearchInput(
-              (input) => searchPlace(input),
-              key: searchInputKey,
-              boxDecoration: widget.searchBarBoxDecoration,
-              hintText: widget.hintText,
-            ),
           ),
           body: MapPicker(
             widget.apiKey,
@@ -408,15 +394,11 @@ class LocationPickerState extends State<LocationPicker> {
             automaticallyAnimateToCurrentLocation:
                 widget.automaticallyAnimateToCurrentLocation,
             mapStylePath: widget.mapStylePath,
-            appBarColor: widget.appBarColor,
-            searchBarBoxDecoration: widget.searchBarBoxDecoration,
-            hintText: widget.hintText,
-            resultCardConfirmIcon: widget.resultCardConfirmIcon,
-            resultCardAlignment: widget.resultCardAlignment,
-            resultCardDecoration: widget.resultCardDecoration,
-            resultCardPadding: widget.resultCardPadding,
             key: mapKey,
-            language: widget.language,
+            titleBottom: widget.titleBottom,
+            borderColor: widget.borderColor,
+            button: widget.button,
+            primaryColor: widget.primaryColor,
           ),
         );
       }),
@@ -445,14 +427,12 @@ Future<LocationResult> showLocationPicker(
   bool layersButtonEnabled = false,
   bool automaticallyAnimateToCurrentLocation = true,
   String mapStylePath,
-  Color appBarColor = Colors.transparent,
-  BoxDecoration searchBarBoxDecoration,
-  String hintText,
-  Widget resultCardConfirmIcon,
-  AlignmentGeometry resultCardAlignment,
-  EdgeInsetsGeometry resultCardPadding,
-  Decoration resultCardDecoration,
+  Text titleBottom,
+  Color borderColor,
+  double heightBottom,
   String language,
+  Widget button,
+  Color primaryColor,
 }) async {
   final results = await Navigator.of(context).push(
     MaterialPageRoute<dynamic>(
@@ -468,15 +448,14 @@ Future<LocationResult> showLocationPicker(
           automaticallyAnimateToCurrentLocation:
               automaticallyAnimateToCurrentLocation,
           mapStylePath: mapStylePath,
-          appBarColor: appBarColor,
-          hintText: hintText,
-          searchBarBoxDecoration: searchBarBoxDecoration,
-          resultCardConfirmIcon: resultCardConfirmIcon,
-          resultCardAlignment: resultCardAlignment,
-          resultCardPadding: resultCardPadding,
-          resultCardDecoration: resultCardDecoration,
           countries: countries,
           language: language,
+          titleBottom: titleBottom,
+          borderColor: borderColor,
+          heightBottom: heightBottom,
+          button: button,
+          primaryColor: primaryColor,
+          
         );
       },
     ),
